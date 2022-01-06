@@ -1,3 +1,4 @@
+import Login from "../src/views/Login";
 import Dashboard from "../src/views/Dashboard";
 import Notifications from "../src/views/Notifications";
 import Icons from "../src/views/Icons";
@@ -6,6 +7,13 @@ import TableList from "../src/views/Tables";
 import UserPage from "../src/views/User";
 
 const routes = [
+  {
+    path: "/login",
+    name: "Login",
+    icon: "nc-icon nc-bank",
+    component: Login,
+    layout: "/auth",
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
