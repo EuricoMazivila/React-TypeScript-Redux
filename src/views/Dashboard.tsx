@@ -17,8 +17,6 @@
 
 */
 import React from "react";
-// react plugin used to create charts
-import { Line, Pie } from "react-chartjs-2";
 // reactstrap components
 import {
   Card,
@@ -30,11 +28,6 @@ import {
   Col,
 } from "reactstrap";
 // core components
-import {
-  dashboard24HoursPerformanceChart,
-  dashboardEmailStatisticsChart,
-  dashboardNASDAQChart,
-} from ".././variables/charts.js";
 
 function Dashboard() {
   return (
@@ -153,14 +146,6 @@ function Dashboard() {
                 <CardTitle tag="h5">Users Behavior</CardTitle>
                 <p className="card-category">24 Hours performance</p>
               </CardHeader>
-              <CardBody>
-                <Line
-                  data={dashboard24HoursPerformanceChart.data}
-                  options={dashboard24HoursPerformanceChart.options}
-                  width={400}
-                  height={100}
-                />
-              </CardBody>
               <CardFooter>
                 <hr />
                 <div className="stats">
@@ -177,12 +162,6 @@ function Dashboard() {
                 <CardTitle tag="h5">Email Statistics</CardTitle>
                 <p className="card-category">Last Campaign Performance</p>
               </CardHeader>
-              <CardBody style={{ height: "266px" }}>
-                <Pie
-                  data={dashboardEmailStatisticsChart.data}
-                  options={dashboardEmailStatisticsChart.options}
-                />
-              </CardBody>
               <CardFooter>
                 <div className="legend">
                   <i className="fa fa-circle text-primary" /> Opened{" "}
@@ -203,14 +182,6 @@ function Dashboard() {
                 <CardTitle tag="h5">NASDAQ: AAPL</CardTitle>
                 <p className="card-category">Line Chart with Points</p>
               </CardHeader>
-              <CardBody>
-                <Line
-                  data={dashboardNASDAQChart.data}
-                  options={dashboardNASDAQChart.options}
-                  width={400}
-                  height={100}
-                />
-              </CardBody>
               <CardFooter>
                 <div className="chart-legend">
                   <i className="fa fa-circle text-info" /> Tesla Model S{" "}

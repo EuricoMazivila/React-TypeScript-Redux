@@ -4,19 +4,23 @@ import React from "react";
 import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch, useLocation } from "react-router-dom";
 
-import DemoNavbar from "../components/Navbars/DemoNavbar.js";
-import Footer from "../components/Footer/Footer.js";
-import Sidebar from "../components/Sidebar/Sidebar.js";
+import DemoNavbar from "../components/Navbars/DemoNavbar";
+import Footer from "../components/Footer/Footer";
+import Sidebar from "../components/Sidebar/Sidebar";
+import {ExtractRouteParams, RouteComponentProps} from "react-router";
+import routes from "../routes";
 
-import routes from "../routes.js";
+var ps: PerfectScrollbar;
 
-var ps;
+interface IDashboardProps {
+  props: RouteComponentProps<ExtractRouteParams<string,string>>,
+}
 
-function Dashboard(props) {
-  const mainPanel = React.useRef();
+function Dashboard({props} : IDashboardProps) {
+  const mainPanel = React.useRef<PerfectScrollbar & HTMLDivElement>(null);
   const location = useLocation();
   React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
+    if (navigator.platform.indexOf("Win") > -1 && mainPanel.current) {
       ps = new PerfectScrollbar(mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
     }
@@ -28,20 +32,22 @@ function Dashboard(props) {
     };
   });
   React.useEffect(() => {
-    mainPanel.current.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
+    if (mainPanel.current){
+      mainPanel.current.scrollTop = 0;
+    }
+    if(document.scrollingElement){
+      document.scrollingElement.scrollTop = 0;
+    }
   }, [location]);
 
   return (
     <div className="wrapper">
       <Sidebar
-        {...props}
+        props={props}
         routes={routes}
-        bgColor="black"
-        activeColor="success"
       />
       <div className="main-panel" ref={mainPanel}>
-        <DemoNavbar {...props} />
+        <DemoNavbar props={props} />
         <Switch>
           {routes.map((prop, key) => {
             return (
@@ -53,7 +59,7 @@ function Dashboard(props) {
             );
           })}
         </Switch>
-        <Footer fluid />
+        <Footer />
       </div>
     </div>
   );

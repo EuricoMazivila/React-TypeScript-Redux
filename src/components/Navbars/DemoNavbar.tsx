@@ -35,14 +35,18 @@ import {
   InputGroupAddon,
   Input,
 } from "reactstrap";
+import {ExtractRouteParams, RouteComponentProps} from "react-router";
+import routes from "../../routes";
 
-import routes from "../../routes.js";
+interface IHeaderProps {
+  props: RouteComponentProps<ExtractRouteParams<string,string>>,
+}
 
-function Header(props) {
+function Header({props} : IHeaderProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
-  const sidebarToggle = React.useRef();
+  const sidebarToggle = React.useRef<NavbarToggler & HTMLButtonElement>(null);
   const location = useLocation();
   const toggle = () => {
     if (isOpen) {
@@ -52,7 +56,7 @@ function Header(props) {
     }
     setIsOpen(!isOpen);
   };
-  const dropdownToggle = (e) => {
+  const dropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
   };
   const getBrand = () => {
@@ -67,7 +71,9 @@ function Header(props) {
   };
   const openSidebar = () => {
     document.documentElement.classList.toggle("nav-open");
-    sidebarToggle.current.classList.toggle("toggled");
+    if(sidebarToggle.current){
+      sidebarToggle.current.classList.toggle("toggled");
+    }
   };
   // function that adds color dark/transparent to the navbar on resize (this is for the collapse)
   const updateColor = () => {
@@ -78,7 +84,7 @@ function Header(props) {
     }
   };
   React.useEffect(() => {
-    window.addEventListener("resize", updateColor.bind(this));
+    window.addEventListener("resize", updateColor.bind("transparent"));
   });
   React.useEffect(() => {
     if (
@@ -86,7 +92,9 @@ function Header(props) {
       document.documentElement.className.indexOf("nav-open") !== -1
     ) {
       document.documentElement.classList.toggle("nav-open");
-      sidebarToggle.current.classList.toggle("toggled");
+      if(sidebarToggle.current){
+        sidebarToggle.current.classList.toggle("toggled");
+      }
     }
   }, [location]);
   return (
@@ -149,7 +157,7 @@ function Header(props) {
             <Dropdown
               nav
               isOpen={dropdownOpen}
-              toggle={(e) => dropdownToggle(e)}
+              toggle={() => dropdownToggle()}
             >
               <DropdownToggle caret nav>
                 <i className="nc-icon nc-bell-55" />

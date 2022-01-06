@@ -82,10 +82,10 @@ Within the download you'll find the following directories and files:
 │   ├── index.html
 │   └── manifest.json
 └── src
-    ├── index.js
+    ├── index.tsx
     ├── logo-white.svg
     ├── logo.svg
-    ├── routes.js
+    ├── routes.tsx
     ├── components
     │   ├── FixedPlugin
     │   │   └── FixedPlugin.jsx

@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Paper Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 /*eslint-disable*/
 import React from "react";
 // react plugin for creating notifications over the dashboard
@@ -34,8 +16,8 @@ import {
 } from "reactstrap";
 
 function Notifications() {
-  const notificationAlert = React.useRef();
-  const notify = (place) => {
+  const notificationAlert = React.useRef<NotificationAlert>(null);
+  const notify = (place: string) => {
     var color = Math.floor(Math.random() * 5 + 1);
     var type;
     switch (color) {
@@ -57,7 +39,7 @@ function Notifications() {
       default:
         break;
     }
-    var options = {};
+    var options: any = {};
     options = {
       place: place,
       message: (
@@ -72,7 +54,9 @@ function Notifications() {
       icon: "nc-icon nc-bell-55",
       autoDismiss: 7,
     };
-    notificationAlert.current.notificationAlert(options);
+    if (notificationAlert.current){
+        notificationAlert.current.notificationAlert(options);
+    }
   };
   return (
     <>

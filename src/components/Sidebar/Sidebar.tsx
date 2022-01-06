@@ -23,17 +23,24 @@ import { Nav } from "reactstrap";
 import PerfectScrollbar from "perfect-scrollbar";
 
 import logo from "../../logo.svg";
+import {ExtractRouteParams, RouteComponentProps} from "react-router";
+import {IRoute} from "../../Interfaces/IRoutes";
 
-var ps;
+var ps : any;
 
-function Sidebar(props) {
-  const sidebar = React.useRef();
+interface ISideBarProps {
+  props: RouteComponentProps<ExtractRouteParams<string,string>>,
+  routes: Array<IRoute>
+}
+
+function Sidebar({props, routes} : ISideBarProps) {
+  const sidebar = React.useRef<PerfectScrollbar & HTMLDivElement>(null);
   // verifies if routeName is the one active (in browser input)
-  const activeRoute = (routeName) => {
+  const activeRoute = (routeName: string) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
   React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
+    if (navigator.platform.indexOf("Win") > -1 && sidebar.current) {
       ps = new PerfectScrollbar(sidebar.current, {
         suppressScrollX: true,
         suppressScrollY: false,
@@ -48,8 +55,8 @@ function Sidebar(props) {
   return (
     <div
       className="sidebar"
-      data-color={props.bgColor}
-      data-active-color={props.activeColor}
+      data-color="black"
+      data-active-color="success"
     >
       <div className="logo">
         <a
@@ -69,11 +76,11 @@ function Sidebar(props) {
       </div>
       <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>
-          {props.routes.map((prop, key) => {
+          {routes.map((prop, key) => {
             return (
               <li
                 className={
-                  activeRoute(prop.path) + (prop.pro ? " active-pro" : "")
+                  activeRoute(prop.path)
                 }
                 key={key}
               >
