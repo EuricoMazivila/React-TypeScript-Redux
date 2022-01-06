@@ -77,23 +77,27 @@ function Sidebar({props, routes} : ISideBarProps) {
       <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>
           {routes.map((prop, key) => {
-            return (
-              <li
-                className={
-                  activeRoute(prop.path)
-                }
-                key={key}
-              >
-                <NavLink
-                  to={prop.layout + prop.path}
-                  className="nav-link"
-                  activeClassName="active"
-                >
-                  <i className={prop.icon} />
-                  <p>{prop.name}</p>
-                </NavLink>
-              </li>
-            );
+            if(prop.layout === "/admin"){
+              return (
+                  <li
+                      className={
+                        activeRoute(prop.path)
+                      }
+                      key={key}
+                  >
+                    <NavLink
+                        to={prop.layout + prop.path}
+                        className="nav-link"
+                        activeClassName="active"
+                    >
+                      <i className={prop.icon} />
+                      <p>{prop.name}</p>
+                    </NavLink>
+                  </li>
+              );
+            }else {
+              return null
+            }
           })}
         </Nav>
       </div>
