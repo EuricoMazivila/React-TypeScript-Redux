@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Button,
     Card,
@@ -10,16 +10,40 @@ import {
     InputGroupText,
     InputGroup,
     Row,
-    Col
+    Col, Spinner
 } from "reactstrap";
+import {ILogin} from "../models/login";
+import {useDispatch} from "react-redux";
+import {useHistory} from "react-router";
+import {loginAction} from "../store/actionCreators/login.actionCreator";
+import {useTypeSelector} from "../hooks/useTypeSelector";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginData, setLoginData] = useState<ILogin>();
+    const {login,isLoading,errorMessage} = useTypeSelector((state) => state.login);
+
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const loginHandler = () => {
-        alert("Teste")
+        dispatch(loginAction(email,password));
     }
+
+    useEffect(() => {
+        setLoginData(login);
+
+        if(loginData?.token){
+            history.push("/admin/dashboard")
+        }
+    },[login, history, loginData?.token])
+
+    useEffect(() => {
+        if (errorMessage){
+            alert("Error of Login" + errorMessage)
+        }
+    },[errorMessage])
 
     return(
         <>
@@ -90,6 +114,10 @@ const Login = () => {
 
                 </Row>
             </Col>
+            {
+                isLoading &&
+                <Spinner type="border"/>
+            }
         </>
     )
 }

@@ -9,14 +9,19 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 
 import AdminLayout from "./layouts/Admin";
 import Auth from "./layouts/Auth";
+import {Provider} from "react-redux";
+import {store} from "./store/store";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/auth" render={(props) => <Auth props={props} />} />
-      <Route path="/admin" render={(props) => <AdminLayout props={props} />} />
-      <Redirect from="/" to="/auth/login" />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+      <BrowserRouter>
+          <Switch>
+              <Route path="/auth" render={(props) => <Auth props={props} />} />
+              <Route path="/admin" render={(props) => <AdminLayout props={props} />} />
+              <Redirect from="/" to="/auth/login" />
+          </Switch>
+      </BrowserRouter>
+  </Provider>
+  ,
   document.getElementById("root")
 );
