@@ -34,7 +34,7 @@ const Login = () => {
     useEffect(() => {
         setLoginData(login);
 
-        if(loginData?.token){
+        if(loginData?.token || localStorage.getItem('user')){
             history.push("/admin/dashboard")
         }
     },[login, history, loginData?.token])

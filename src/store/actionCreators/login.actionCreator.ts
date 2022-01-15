@@ -19,10 +19,13 @@ export const loginAction = (email: string, password: string) =>
                 console.log(r.data)
 
                 if (r.status === 200) {
+                    localStorage.setItem('user', JSON.stringify(r.data));
+                    console.log("teste");
+                    console.log(localStorage.getItem('user'));
                     dispatch({
                         type: LoginActionTypes.LOGIN_SUCCESS,
                         payload: r.data
-                    })
+                    });
                 }
             })
             .catch(e => {
@@ -37,4 +40,27 @@ export const loginAction = (email: string, password: string) =>
             payload: e
         })
     }
+}
+
+
+export const logoutAction = () =>
+    async (dispatch: Dispatch<LoginAction>) => {
+        //let api = new Api();
+
+        try {
+            dispatch({
+                type: LoginActionTypes.LOGOUT_LOADING
+            });
+
+            localStorage.clear();
+            dispatch({
+                type: LoginActionTypes.LOGOUT_SUCCESS
+            });
+
+        }catch (e) {
+            dispatch({
+                type: LoginActionTypes.LOGOUT_FAIL,
+                payload: e
+            })
+        }
     }

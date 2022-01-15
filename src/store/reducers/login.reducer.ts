@@ -32,6 +32,12 @@ const loginReducer = (state: ILoginState = initialState, action: LoginAction) =>
             return {...state, isLoading: false, login: action.payload}
         case LoginActionTypes.LOGIN_FAIL:
             return {...state, isLoading: false, errorMessage: action.payload}
+        case LoginActionTypes.LOGOUT_LOADING:
+            return {...state, isLoading: true}
+        case LoginActionTypes.LOGOUT_SUCCESS:
+            return {...state, isLoading: false, login: {}}
+        case LoginActionTypes.LOGOUT_FAIL:
+            return {...state, isLoading: false, errorMessage: action.payload}
         default:
             return state;
     }
