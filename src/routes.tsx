@@ -1,4 +1,5 @@
 import Login from "../src/views/Login";
+import Recover from "../src/views/Recover";
 import Dashboard from "../src/views/Dashboard";
 import Notifications from "../src/views/Notifications";
 import Icons from "../src/views/Icons";
@@ -12,6 +13,14 @@ const routes = [
 		name: "Login",
 		icon: "nc-icon nc-bank",
 		component: Login,
+		layout: "/auth",
+		invisible: true,
+	},
+	{
+		path: "/recover",
+		name: "Recover",
+		icon: "nc-icon nc-bank",
+		component: Recover,
 		layout: "/auth",
 		invisible: true,
 	},

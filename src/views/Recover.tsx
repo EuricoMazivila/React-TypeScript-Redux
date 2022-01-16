@@ -17,12 +17,11 @@ import {
 import { ILogin } from "../models/login";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { loginAction } from "../store/actionCreators/login.actionCreator";
+import { recoverAction } from "../store/actionCreators/login.actionCreator";
 import { useTypeSelector } from "../hooks/useTypeSelector";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
 	const [loginData, setLoginData] = useState<ILogin>();
 	const { login, isLoading, errorMessage } = useTypeSelector(
 		(state) => state.login
@@ -32,7 +31,7 @@ const Login = () => {
 	const history = useHistory();
 
 	const loginHandler = () => {
-		dispatch(loginAction(email, password));
+		dispatch(recoverAction(email));
 	};
 
 	useEffect(() => {
@@ -53,11 +52,16 @@ const Login = () => {
 		<>
 			<div className="content">
 				<Row>
-					<Col lg="6" md="6" sm="6" className="text-center  ml-auto mr-auto ">
+					<Col
+						lg="6"
+						md="6"
+						sm="6"
+						className="text-center  ml-auto mr-auto "
+					>
 						<Card className="h3 shadow border-0 ">
 							<CardHeader>
 								<div className="text-center  text-success mb-3 mt-5">
-									<small> Inicie a sessão na sua conta </small>
+									<small> Recuperar a senha </small>
 								</div>
 							</CardHeader>
 							<CardBody className="px-lg-5 py-lg-5">
@@ -78,22 +82,7 @@ const Login = () => {
 											/>
 										</InputGroup>
 									</FormGroup>
-									<FormGroup>
-										<InputGroup className="input-group-alternative">
-											<InputGroupAddon addonType="prepend">
-												<InputGroupText>
-													<i className="ni ni-lock-circle-open" />
-												</InputGroupText>
-											</InputGroupAddon>
-											<Input
-												placeholder="Senha"
-												type="password"
-												autoComplete="new-password"
-												value={password}
-												onChange={(e) => setPassword(e.target.value)}
-											/>
-										</InputGroup>
-									</FormGroup>
+									
 									<div>
 										<Button
 											block
@@ -103,11 +92,8 @@ const Login = () => {
 											type="button"
 											onClick={loginHandler}
 										>
-											Iniciar
+											Send
 										</Button>
-										<a className="text-success" href="/auth/recover">
-											<small>Recovery Password</small>
-										</a>
 									</div>
 								</Form>
 							</CardBody>

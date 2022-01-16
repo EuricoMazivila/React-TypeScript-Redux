@@ -77,8 +77,7 @@ function Sidebar({ props, routes }: ISideBarProps) {
 				</Nav>
 				<a
 					href="http://www.engenharia.uem.mz/"
-					style={{ marginTop: "calc(100vh - 60px)" }}
-					className="simple-text text-light logo-normal ml-5 h3 n"
+					className="simple-text text-light text-center logo-normal ml-5 h3 n"
 					target="_blank"
 					rel="noreferrer"
 				>
