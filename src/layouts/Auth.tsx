@@ -13,7 +13,7 @@ interface IAuthProps {
 function Auth({props} : IAuthProps) {
 
   return (
-		<div className="wrapper">
+		<div className="wrapper" >
 			<Sidebar props={props} routes={routes} />
 			<div className="main-panel">
 				<Switch>
