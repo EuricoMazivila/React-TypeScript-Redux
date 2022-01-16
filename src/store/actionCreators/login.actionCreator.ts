@@ -31,7 +31,7 @@ export const loginAction = (email: string, password: string) =>
                    payload: e
                })
             });
-    }catch (e) {
+    }catch (e: any) {
         dispatch({
             type: LoginActionTypes.LOGIN_FAIL,
             payload: e

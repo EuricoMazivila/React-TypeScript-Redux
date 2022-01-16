@@ -35,12 +35,17 @@ function Sidebar({props, routes} : ISideBarProps) {
     };
   });
   return (
-		<div className="sidebar" data-color="black" data-active-color="success">
+		<div
+			className="sidebar "
+			data-color="success"
+			data-active-color="success"
+		>
 			<div className="logo">
 				<a
 					href="http://www.engenharia.uem.mz/"
-					className="simple-text logo-normal"
-					target="_blank" rel="noreferrer"
+					className="simple-text  ml-5"
+					target="_blank"
+					rel="noreferrer"
 				>
 					ECO-FEUEM
 				</a>
@@ -48,7 +53,7 @@ function Sidebar({props, routes} : ISideBarProps) {
 			<div className="sidebar-wrapper" ref={sidebar}>
 				<Nav>
 					{routes.map((prop, key) => {
-						if (prop.layout === "/admin") {
+						if (prop.layout === "/auth" && !prop.invisible) {
 							return (
 								<li className={activeRoute(prop.path)} key={key}>
 									<NavLink
@@ -66,6 +71,14 @@ function Sidebar({props, routes} : ISideBarProps) {
 						}
 					})}
 				</Nav>
+				<a
+					href="http://www.engenharia.uem.mz/"
+					className="simple-text text-light logo-normal ml-5 h3 mb-10"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<i className="fa fa-question-circle " aria-hidden="true"></i>
+				</a>
 			</div>
 		</div>
 	);

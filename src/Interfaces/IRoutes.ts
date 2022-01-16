@@ -5,4 +5,5 @@ export interface IRoute {
     icon: string,
     component: React.ComponentType<any>,
     layout: string
+    invisible: boolean,
 }
