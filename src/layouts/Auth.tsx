@@ -4,6 +4,7 @@ import React from "react";
 import { Route, Switch} from "react-router-dom";
 import {ExtractRouteParams, RouteComponentProps} from "react-router";
 import routes from "../routes";
+import Sidebar from "../components/Sidebar/Sidebar.Auth";
 
 interface IAuthProps {
   props: RouteComponentProps<ExtractRouteParams<string,string>>
@@ -12,22 +13,27 @@ interface IAuthProps {
 function Auth({props} : IAuthProps) {
 
   return (
-    <div className="wrapper">
-      <div className="main-panel">
-        <Switch>
-          {routes.map((prop, key) => {
-            return (
-              <Route
-                path={prop.layout + prop.path}
-                component={prop.component}
-                key={key}
-              />
-            );
-          })}
-        </Switch>
-      </div>
-    </div>
-  );
+		<div className="wrapper" >
+			<Sidebar props={props} routes={routes} />
+			<div className="main-panel">
+				<Switch>
+					{routes.map((prop, key) => {
+						if (prop.layout === "/auth") {
+							return (
+								<Route
+									path={prop.layout + prop.path}
+									component={prop.component}
+									key={key}
+								/>
+							);
+						} else {
+							return null;
+						}
+					})}
+				</Switch>
+			</div>
+		</div>
+	);
 }
 
 export default Auth;

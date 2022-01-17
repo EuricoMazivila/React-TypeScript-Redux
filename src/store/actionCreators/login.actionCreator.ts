@@ -34,7 +34,43 @@ export const loginAction = (email: string, password: string) =>
                    payload: e
                })
             });
-    }catch (e) {
+    }catch (e: any) {
+        dispatch({
+            type: LoginActionTypes.LOGIN_FAIL,
+            payload: e
+        })
+    }
+    }
+
+    export const recoverAction = (email: string) =>
+    async (dispatch: Dispatch<LoginAction>) => {
+    let api = new Api();
+
+    try {
+        dispatch({
+            type: LoginActionTypes.LOGIN_LOADING
+        });
+
+        await api.post<ILogin>("/auth", {email})
+            .then(r => {
+
+                console.log("dados de retorno")
+                console.log(r.data)
+
+                if (r.status === 200) {
+                    dispatch({
+                        type: LoginActionTypes.LOGIN_SUCCESS,
+                        payload: r.data
+                    })
+                }
+            })
+            .catch(e => {
+               dispatch({
+                   type: LoginActionTypes.LOGIN_FAIL,
+                   payload: e
+               })
+            });
+    }catch (e: any) {
         dispatch({
             type: LoginActionTypes.LOGIN_FAIL,
             payload: e
