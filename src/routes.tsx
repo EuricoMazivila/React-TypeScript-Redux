@@ -6,8 +6,9 @@ import Icons from "../src/views/Icons";
 import Typography from "../src/views/Typography";
 import TableList from "../src/views/Tables";
 import UserPage from "../src/views/User";
+import Mail from "../src/views/Mail";
 
-const routes = [
+const routes = [ 
 	{
 		path: "/login",
 		name: "Login",
@@ -21,6 +22,14 @@ const routes = [
 		name: "Recover",
 		icon: "nc-icon nc-bank",
 		component: Recover,
+		layout: "/auth",
+		invisible: true,
+	},
+	{
+		path: "/mail",
+		name: "Recover Link",
+		icon: "nc-icon nc-bank",
+		component: Mail,
 		layout: "/auth",
 		invisible: true,
 	},

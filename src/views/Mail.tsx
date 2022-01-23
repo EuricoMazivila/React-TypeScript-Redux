@@ -17,12 +17,11 @@ import {
 import { ILogin } from "../models/login";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { recoverAction } from "../store/actionCreators/login.actionCreator";
+import { mailAction } from "../store/actionCreators/login.actionCreator";
 import { useTypeSelector } from "../hooks/useTypeSelector";
 
-const Login = () => {
-	const [password,setPassword] = useState("");
-	 const [confirmPassword, setConfirmPassword] = useState("");
+const Mail = () => {
+	const [email, setEmail] = useState("");
 	const [loginData, setLoginData] = useState<ILogin>();
 	const { login, isLoading, errorMessage } = useTypeSelector(
 		(state) => state.login
@@ -31,20 +30,21 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const recoverHandler = () => {
-		dispatch(recoverAction(password));
+	const mailHandler = () => {
+		dispatch(mailAction(email));
 	};
 
 	useEffect(() => {
 		setLoginData(login);
 
-		if (loginData?.token) {
+		if (loginData?.token || localStorage.getItem("user")) {
 			history.push("/admin/dashboard");
 		}
 	}, [login, history, loginData?.token]);
+
 	useEffect(() => {
 		if (errorMessage) {
-			alert("Error ao trocar a passowrd" + errorMessage);
+			alert("Error of Login" + errorMessage);
 		}
 	}, [errorMessage]);
 
@@ -56,7 +56,7 @@ const Login = () => {
 						<Card className="h3 shadow border-0 ">
 							<CardHeader>
 								<div className="text-center  text-success mb-3 mt-5">
-									<small> Recuperar a senha </small>
+									<small> Vamos enviar um link de recuperação </small>
 								</div>
 							</CardHeader>
 							<CardBody className="px-lg-5 py-lg-5">
@@ -65,37 +65,18 @@ const Login = () => {
 										<InputGroup className="input-group-alternative">
 											<InputGroupAddon addonType="prepend">
 												<InputGroupText>
-													<i className="ni ni-lock-circle-open" />
+													<i className="ni ni-email-83" />
 												</InputGroupText>
 											</InputGroupAddon>
 											<Input
-												placeholder="Senha"
-												type="password"
-												autoComplete="new-password"
-												value={password}
-												onChange={(e) => setPassword(e.target.value)}
+												placeholder="Email"
+												type="email"
+												autoComplete="new-email"
+												value={email}
+												onChange={(e) => setEmail(e.target.value)}
 											/>
 										</InputGroup>
 									</FormGroup>
-									<Form role="form">
-										<FormGroup className="mb-3">
-											<InputGroup className="input-group-alternative">
-												<InputGroupAddon addonType="prepend">
-													<InputGroupText>
-														<i className="ni ni-lock-circle-open" />
-													</InputGroupText>
-												</InputGroupAddon>
-												<Input
-													placeholder="Confirmar Senha"
-													type="password"
-													autoComplete="new-password"
-													value={confirmPassword}
-													onChange={(e) => setConfirmPassword(e.target.value)}
-												/>
-											</InputGroup>
-										</FormGroup>
-									</Form>
-
 									<div>
 										<Button
 											block
@@ -103,9 +84,9 @@ const Login = () => {
 											size="lg"
 											color="success"
 											type="button"
-											onClick={recoverHandler}
+											onClick={mailHandler}
 										>
-											Send
+											enviar
 										</Button>
 									</div>
 								</Form>
@@ -119,4 +100,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Mail;
