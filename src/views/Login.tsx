@@ -38,10 +38,10 @@ const Login = () => {
 	useEffect(() => {
 		setLoginData(login);
 
-        if(loginData?.token || localStorage.getItem('user')){
-            history.push("/admin/dashboard")
-        }
-    },[login, history, loginData?.token])
+		if (loginData?.token || localStorage.getItem("user")) {
+			history.push("/admin/dashboard");
+		}
+	}, [login, history, loginData?.token]);
 
 	useEffect(() => {
 		if (errorMessage) {
@@ -105,8 +105,8 @@ const Login = () => {
 										>
 											Iniciar
 										</Button>
-										<a className="text-success" href="/auth/recover">
-											<small>Recovery Password</small>
+										<a className="text-success" href="/auth/mail">
+											<small>Recuperar a Senha</small>
 										</a>
 									</div>
 								</Form>

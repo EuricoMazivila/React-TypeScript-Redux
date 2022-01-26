@@ -35,12 +35,17 @@ function Sidebar({props, routes} : ISideBarProps) {
     };
   });
   return (
-		<div className="sidebar" data-color="black" data-active-color="success">
+		<div
+			className="sidebar bg-success"
+			data-color="success"
+			data-active-color="success"
+		>
 			<div className="logo">
 				<a
 					href="http://www.engenharia.uem.mz/"
 					className="simple-text logo-normal"
-					target="_blank" rel="noreferrer"
+					target="_blank"
+					rel="noreferrer"
 				>
 					ECO-FEUEM
 				</a>

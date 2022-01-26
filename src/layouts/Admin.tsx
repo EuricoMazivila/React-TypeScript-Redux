@@ -46,7 +46,7 @@ function Dashboard({props} : IDashboardProps) {
         props={props}
         routes={routes}
       />
-      <div className="main-panel" ref={mainPanel}>
+      <div className="main-panel">
         <DemoNavbar props={props} />
         <Switch>
           {routes.map((prop, key) => {
